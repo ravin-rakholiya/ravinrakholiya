@@ -977,16 +977,22 @@ footer{border-top:1px solid var(--edge);text-align:center;padding:2rem 2rem;font
   .contact-links{flex-direction:column;align-items:stretch;gap:.7rem}
   .contact-link{justify-content:center}
 
-  /* Tone down heavy background effects for performance & focus */
-  #matrix{opacity:0.25}
-  .orb1,.orb2,.orb3{filter:blur(40px)}
-  .orb1{width:260px;height:260px}
-  .orb2{width:240px;height:240px}
-  .orb3{width:200px;height:200px}
-  #gridfloor{opacity:0.5}
+  /* Tone down / kill heavy background effects for mobile performance */
+  #matrix{display:none}          /* kill matrix canvas entirely */
+  #neural{display:none}          /* kill neural canvas entirely */
+  #tokenfield{display:none}      /* kill floating particles */
+  #gridfloor{display:none}       /* kill animated grid */
+  .orb1,.orb2,.orb3{
+    filter:none;                  /* blur() is extremely expensive on mobile GPU */
+    animation:none;
+    opacity:0.06;
+  }
+  /* kill CSS pseudo-element animations on body */
+  body::before,body::after{animation:none;display:none}
   .status-bar{display:none}
-  .hud-tl,.hud-tr,.hud-bl,.hud-br{width:24px;height:24px;opacity:.2}
-  .token-particle{display:none}
+  .hud-tl,.hud-tr,.hud-bl,.hud-br{display:none}
+  /* simplify backdrop-filter (expensive on mobile) */
+  .chat-outer,.nav-links,.back-to-top{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
 
 /* Small phones */
@@ -1537,9 +1543,18 @@ footer{border-top:1px solid var(--edge);text-align:center;padding:2rem 2rem;font
 
 <script>
 /* ════════════════════════════════════════════
+   MOBILE PERFORMANCE GATE
+   Skip all heavy canvas / particle effects on
+   touch/mobile devices to prevent lag.
+   ════════════════════════════════════════════ */
+var IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  || window.innerWidth <= 768;
+
+/* ════════════════════════════════════════════
    MATRIX / CODE RAIN — AI data-stream backdrop
    ════════════════════════════════════════════ */
 (function(){
+  if(IS_MOBILE) return; // skip on mobile
   const mcanvas = document.getElementById('matrix');
   const mctx = mcanvas.getContext('2d');
   let mW, mH, cols, drops;
@@ -1581,6 +1596,7 @@ footer{border-top:1px solid var(--edge);text-align:center;padding:2rem 2rem;font
    FLOATING AI TOKEN PARTICLES
    ════════════════════════════════════════════ */
 (function(){
+  if(IS_MOBILE) return; // skip on mobile
   const field = document.getElementById('tokenfield');
   const tokens = ['{ "role": "system" }','vector.search()','tokens: 4096','GPT-4o','attention_weights','embedding[1536]','temperature: 0.7','RAG → retrieve','<|endoftext|>','softmax(logits)','async def run()','top_k=5','0x4F2A91','cosine_sim: 0.94','LangChain.invoke','self.attention','/v1/completions','model.eval()'];
   const count = 22;
@@ -1605,6 +1621,7 @@ footer{border-top:1px solid var(--edge);text-align:center;padding:2rem 2rem;font
    Layered network: input → hidden → output
    Nodes pulse, fire, and send colored signals
    ════════════════════════════════════════════ */
+if(!IS_MOBILE) { // skip entire neural network on mobile
 const canvas = document.getElementById('neural');
 const ctx = canvas.getContext('2d');
 let W, H;
@@ -1819,10 +1836,12 @@ function draw(ts){
 }
 draw(0);
 
+} // end if(!IS_MOBILE) — neural network
+
 /* ── 3D CARD ── */
 const nidWrap = document.getElementById('nid-wrap');
 const nid = document.getElementById('nid');
-if(nidWrap&&nid){
+if(nidWrap&&nid&&!IS_MOBILE){
   nidWrap.addEventListener('mousemove',e=>{
     const r=nidWrap.getBoundingClientRect();
     const rx=-(e.clientY-r.top-r.height/2)/9;
@@ -2153,13 +2172,19 @@ async function sendMessage(){
 
 const backToTop=document.getElementById('backToTop');
 const progressBar=document.getElementById('progress-bar');
+let scrollTicking=false;
 window.addEventListener('scroll',()=>{
-  const scrolled=window.scrollY;
-  const total=document.documentElement.scrollHeight-window.innerHeight;
-  const pct=total>0?Math.round((scrolled/total)*100):0;
-  if(progressBar) progressBar.style.width=pct+'%';
-  backToTop.classList.toggle('show', scrolled > window.innerHeight*0.6);
-});
+  if(scrollTicking) return;
+  scrollTicking=true;
+  requestAnimationFrame(()=>{
+    const scrolled=window.scrollY;
+    const total=document.documentElement.scrollHeight-window.innerHeight;
+    const pct=total>0?Math.round((scrolled/total)*100):0;
+    if(progressBar) progressBar.style.width=pct+'%';
+    backToTop.classList.toggle('show', scrolled > window.innerHeight*0.6);
+    scrollTicking=false;
+  });
+},{passive:true});
 backToTop.addEventListener('click',()=>{
   window.scrollTo({top:0,behavior:'smooth'});
 });
