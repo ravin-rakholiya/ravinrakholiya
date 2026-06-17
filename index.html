@@ -1952,130 +1952,12 @@ navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeNav));
 window.addEventListener('resize',()=>{ if(window.innerWidth>900) closeNav(); });
 
 
-/* ── AI CHAT ── */
-const PORTFOLIO_CONTEXT = `You are the AI assistant embedded in Ravin Rakholiya's portfolio website. Answer questions about Ravin accurately based on the information below. Be concise, friendly, and professional. Speak as if you are representing Ravin professionally.
-
-ABOUT RAVIN:
-Name: Ravinkumar Rakholiya (goes by Ravin)
-Current Role: GenAI Engineer at Dayforce (formerly Ceridian), Canada (Remote), May 2024 – Present
-Location: Toronto, Ontario, Canada
-Email: ravinkumarrakholiya@gmail.com
-Phone: (226) 289-0881
-LinkedIn: linkedin.com/in/ravin-rakholiya
-GitHub: github.com/ravin-rakholiya
-
-EDUCATION:
-- Master of Applied Computing (CS & Engineering), University of Windsor, Ontario, May 2023 – Dec 2024
-- B.E. Computer Science & Engineering, Parul University, India, Aug 2015 – May 2019
-
-EXPERIENCE:
-1. Dayforce — GenAI Engineer (May 2024 – Present, Canada Remote)
-   - Built LLM-powered conversational AI, Q&A systems, and workflow automation → 30% efficiency gain across HR operations
-   - End-to-end RAG pipelines (ingestion, chunking, embeddings, hybrid vector search) → 25% accuracy improvement
-   - Integrated OpenAI GPT + LangChain orchestration → 50% reduction in manual processing
-   - FastAPI/Django microservices for 1M+ active users at 99.9% uptime, sub-2s P95 response
-   - Redis, Kafka, RabbitMQ optimizations → 50% latency reduction, 40% throughput increase
-   - Tech: Python, FastAPI, Django, OpenAI GPT, LangChain, RAG, Vector DB, Terraform, Redis, Kafka
-
-2. Gloify Technology — Software Engineer (Oct 2020 – Feb 2023, India)
-   - High-performance REST APIs with Django REST Framework → 40% latency reduction
-   - ML & NLP models for recommendations, sentiment analysis, document categorization
-   - PostgreSQL optimization → 50% DB performance improvement
-   - Tech: Python, Django, PostgreSQL, Celery, NLP, ML, Microservices
-
-3. Balasys Infotech — Software Engineer (Jun 2019 – Aug 2020, India)
-   - Python/Django/Flask/Node.js backend apps across SQL and NoSQL
-   - Multi-cloud Terraform (AWS, Azure, GCP, Oracle Cloud)
-   - Docker + Kubernetes containerization at scale
-   - Tech: Python, Flask, MongoDB, Terraform, Docker, Kubernetes, Kafka
-
-KEY PROJECTS:
-1. PolicyIQ — HR Conversational AI (PRODUCTION at Dayforce)
-   - Enterprise assistant for querying 10,000+ HR policy documents in plain English
-   - Hybrid BM25 + semantic retrieval, cited auditable answers under 2s
-   - Impact: +30% HR efficiency, 1M+ users, ~1.8s P95 latency
-   - Stack: GPT-4o, LangChain, Pinecone, FastAPI, Azure OpenAI, Redis
-
-2. Virtual Banking Assistant (FINTECH — Big Five Canadian bank)
-   - Handles disputes, mortgage FAQs, and advisor bookings
-   - OSFI-compliant PII redaction and audit logging
-   - Impact: -60% call centre load, 92% CSAT
-   - Stack: GPT-4, LangChain Agents, Azure Bot, Cosmos DB
-
-3. ContractSense — Contract AI (LEGALTECH)
-   - LLM-powered commercial contract parsing, risky clause flagging, obligation extraction
-   - Supports DOCX, PDF, scanned docs via OCR
-   - Impact: -70% review time, 94% clause recall
-   - Stack: GPT-4o, LlamaIndex, Unstructured.io, FastAPI
-
-4. Shopify Merchant AI Agent (ECOMMERCE)
-   - Autonomous multi-step support for 50K+ orders/month merchant
-   - Handles returns, refunds, product questions via Shopify API tool-calling
-   - Impact: 78% auto-resolution, -45% ticket volume
-   - Stack: Claude 3, LangChain Tools, Shopify API, Redis
-
-5. MediRoute — Patient Triage AI (HEALTHTECH)
-   - PHIPA-compliant symptom triage bot
-   - Fine-tuned model on clinical guidelines with mandatory human escalation
-   - Impact: PHIPA compliant, -35% ER misrouting
-   - Stack: GPT-4, LangChain, FAISS, Django, Azure
-
-6. IT Helpdesk Knowledge Agent (ITSM)
-   - RAG-powered bot indexing Confluence, Jira, ServiceNow KB
-   - Auto-creates Jira tickets for unresolved issues
-   - Impact: -55% ticket volume, 3min avg resolution
-   - Stack: GPT-4o, LlamaIndex, Weaviate, Jira API
-
-SKILLS:
-- GenAI & LLMs: LLMs, RAG, AI Agents, OpenAI APIs, LangChain, Prompt Engineering, Vector DBs, Semantic Search
-- Backend: Python, FastAPI, Django, Flask, Node.js, GraphQL, REST APIs, Microservices
-- Cloud: AWS, Azure, GCP, Oracle Cloud, Docker, Kubernetes, Terraform
-- Databases: PostgreSQL, MySQL, MongoDB, CosmosDB, Redis, Vector DBs (Pinecone, FAISS, Weaviate)
-- DevOps: Jenkins, GitHub Actions, CI/CD, Unix/Linux
-- Distributed: Kafka, RabbitMQ, Redis Pub/Sub, Event-Driven, Async Processing
-
-CERTIFICATIONS (30+):
-- Introduction to Model Context Protocol (Anthropic), Jun 2026 — ID: thuarsyg3pc7
-- Building with the Claude API (Anthropic), May 2026 — ID: gqho6kgkycn4 (RAG, Prompt Engineering, Claude, AI Agents)
-- Microsoft Azure AI Fundamentals (AI-900), Nov 2024
-- Anthropic Claude 101, May 2026 — ID: cratt6gfqiud
-- AI Fluent Tech Professional (Calyptus), May 2026
-- DeepLearning.AI: LangChain for LLM Application Development
-- DeepLearning.AI: Building Agentic RAG with LlamaIndex
-- DeepLearning.AI: Multi-AI Agent Systems with CrewAI
-- DeepLearning.AI: Advanced RAG Orchestration
-- DeepLearning.AI: Building Multimodal Search & RAG
-- DeepLearning.AI: Functions, Tools & Agents with LangChain
-- Oracle Data Platform 2025 Foundations (Oracle), Oct 2025
-- OCI 2025 AI Foundations Associate (Oracle), Oct 2025
-- Oracle Fusion AI Agent Studio Foundations (Oracle), Oct 2025
-- OCI 2025 Developer Professional, OCI 2025 DevOps Professional, OCI 2025 Architect Associate, OCI 2025 Foundations Associate
-- AWS Cloud Technical Essentials (Coursera), Oct 2023
-- NextGen CTO Program (Canvas Credentials/Badgr), Nov 2023
-- Plus many more in DevOps, SQL, Python, Git, PM, Blockchain, etc.
-
-KEY STATS:
-- 6+ years of software engineering experience
-- 1M+ active users served by systems he built
-- 99.9% system uptime maintained
-- 30+ certifications
-
-AVAILABILITY:
-Ravin is open to GenAI engineering roles, consulting, and collaborative AI systems projects.
-
-INSTRUCTIONS:
-- Answer concisely and helpfully, typically 2-4 sentences unless detail is needed
-- Don't make up information not listed above
-- If asked something outside the portfolio scope, politely redirect to relevant topics
-- Be warm and professional, matching the tone of a cutting-edge AI engineer's portfolio
-- You can share contact info (email, LinkedIn) if someone wants to connect`;
-
+/* ── AI CHAT (free, local knowledge base — no API key needed) ── */
 const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
 const chatSuggestions = document.getElementById('chatSuggestions');
 
-let conversationHistory = [];
 let isLoading = false;
 
 function autoResize(el){
@@ -2127,6 +2009,97 @@ function removeTyping(){
   if(t)t.remove();
 }
 
+/* Knowledge base: each entry has trigger keywords and a ready-made answer.
+   Pulled straight from the portfolio content below — fully free, runs in the browser. */
+const KB=[
+  {tier:'general',kw:['hi','hello','hey','sup','yo','greetings'],a:"Hey there! 👋 I'm Ravin's portfolio assistant. Ask me about his experience, projects, skills, education, or how to get in touch."},
+  {tier:'general',kw:['who is ravin','who are you','about ravin','about you','introduce yourself','what does ravin do'],a:"Ravin Rakholiya is a GenAI Engineer at Dayforce in Toronto, Canada, with 6+ years of software engineering experience. He specializes in LLM-powered applications, RAG pipelines, and conversational AI, and holds a Master's in Applied Computing from the University of Windsor."},
+  {kw:['dayforce','current role','current job','currently work','ceridian'],a:"Ravin currently works as a GenAI Engineer at Dayforce (Canada, Remote) since May 2024. He's built LLM-powered conversational AI, Q&A systems, and workflow automation that drove a 30% efficiency gain across HR operations, plus FastAPI/Django microservices serving 1M+ active users at 99.9% uptime."},
+  {kw:['experience','work history','career','background','previous job','gloify','balasys','past roles'],a:"Ravin has 6+ years of experience: GenAI Engineer at Dayforce (2024–present), Software Engineer at Gloify Technology (2020–2023) building ML/NLP-powered REST APIs, and Software Engineer at Balasys Infotech (2019–2020) on multi-cloud, containerized backend systems."},
+  {kw:['education','degree','university','windsor','parul','school','study','studied'],a:"Ravin holds a Master of Applied Computing (CS & Engineering) from the University of Windsor, Ontario (2023–2024), and a B.E. in Computer Science & Engineering from Parul University, India (2015–2019)."},
+  {kw:['skill','tech stack','technologies','language','tools','programming','stack'],a:"Ravin's core stack spans GenAI (LLMs, RAG, AI Agents, LangChain, Vector DBs), backend (Python, FastAPI, Django, Flask, Node.js), cloud (AWS, Azure, GCP, Docker, Kubernetes, Terraform), and databases (PostgreSQL, MongoDB, Redis, Pinecone, FAISS, Weaviate)."},
+  {kw:['database','db','sql','postgresql','mongodb','nosql','cosmosdb','mysql'],a:"Ravin has worked with PostgreSQL, MySQL, MongoDB, and CosmosDB for relational and document storage, Redis for caching and pub/sub, and vector databases like Pinecone, FAISS, and Weaviate for semantic search in his RAG pipelines. He's also done PostgreSQL performance tuning that improved DB performance by 50% at Gloify Technology."},
+  {kw:['policyiq','hr policy','hr assistant'],a:"PolicyIQ is a production enterprise assistant at Dayforce that lets users query 10,000+ HR policy documents in plain English. It uses hybrid BM25 + semantic retrieval to give cited, auditable answers in under 2 seconds, serving 1M+ users with a 30% HR efficiency boost. Stack: GPT-4o, LangChain, Pinecone, FastAPI, Azure OpenAI, Redis."},
+  {kw:['rag','rag architecture','rag pipeline','retrieval augmented','vector search','vector database','vector db','embeddings','chunking','hybrid retrieval','bm25'],a:"Ravin's RAG architecture runs end-to-end: document ingestion and chunking, embedding generation, then hybrid retrieval that combines BM25 keyword search with semantic vector search (used in PolicyIQ, his production HR assistant serving 1M+ users at Dayforce). Retrieved context is passed to an LLM (GPT-4o/GPT-4) for generation, with citations attached for auditability. He's built this with vector stores like Pinecone, FAISS, and Weaviate, orchestrated via LangChain and LlamaIndex, hitting sub-2-second P95 latency and a 25% accuracy improvement over baseline retrieval."},
+  {kw:['banking','bank assistant','fintech','mortgage','disputes'],a:"Ravin built a Virtual Banking Assistant for a Big Five Canadian bank that handles disputes, mortgage FAQs, and advisor bookings with OSFI-compliant PII redaction. It cut call-centre load by 60% with 92% CSAT, using GPT-4, LangChain Agents, Azure Bot, and Cosmos DB."},
+  {kw:['contractsense','contract ai','legal tech','legaltech'],a:"ContractSense is an LLM-powered legal-tech tool Ravin built for parsing commercial contracts, flagging risky clauses, and extracting obligations from DOCX, PDF, and scanned documents via OCR. It cut review time by 70% with 94% clause recall, using GPT-4o, LlamaIndex, and Unstructured.io."},
+  {kw:['shopify','ecommerce','merchant','e-commerce'],a:"Ravin built a Shopify Merchant AI Agent that autonomously handles returns, refunds, and product questions for a merchant processing 50K+ orders/month via Shopify API tool-calling. It achieves 78% auto-resolution and cut ticket volume by 45%, using Claude 3, LangChain Tools, and Redis."},
+  {kw:['mediroute','healthtech','triage','patient'],a:"MediRoute is a PHIPA-compliant patient triage AI Ravin built, fine-tuned on clinical guidelines with mandatory human escalation. It reduced ER misrouting by 35% while staying fully PHIPA compliant, using GPT-4, LangChain, FAISS, and Django."},
+  {kw:['helpdesk','itsm','jira','confluence','servicenow'],a:"Ravin built an IT Helpdesk Knowledge Agent that's a RAG-powered bot indexing Confluence, Jira, and ServiceNow knowledge bases, auto-creating Jira tickets for unresolved issues. It cut ticket volume by 55% with a 3-minute average resolution time, using GPT-4o, LlamaIndex, and Weaviate."},
+  {kw:['project','built','portfolio project','work example','case study'],a:"Ravin has shipped 6 major AI projects: PolicyIQ (HR conversational AI), a Virtual Banking Assistant (fintech), ContractSense (legal-tech contract parsing), a Shopify Merchant AI Agent, MediRoute (healthtech triage), and an IT Helpdesk Knowledge Agent. Ask me about any one by name for details!"},
+  {kw:['certification','certified','certificate','credential'],a:"Ravin holds 30+ certifications, including Anthropic's 'Introduction to Model Context Protocol' and 'Building with the Claude API' (2026), Microsoft Azure AI Fundamentals (AI-900), and several DeepLearning.AI courses on LangChain, agentic RAG, and multi-agent systems."},
+  {kw:['contact','email','reach','hire','linkedin','github','phone','connect','get in touch'],a:"You can reach Ravin at ravinkumarrakholiya@gmail.com, connect on LinkedIn (linkedin.com/in/ravin-rakholiya), or check out his work on GitHub (github.com/ravin-rakholiya)."},
+  {kw:['available','availability','hiring','freelance','open to work','consulting','open to'],a:"Ravin is open to GenAI engineering roles, consulting work, and collaborative AI systems projects. Feel free to reach out via email or LinkedIn to discuss opportunities."},
+  {kw:['how many years','years of experience','users','uptime','stats','statistics'],a:"Ravin has 6+ years of software engineering experience, has built systems serving 1M+ active users at 99.9% uptime, and holds 30+ certifications."},
+  {tier:'general',kw:['thank','thanks','thank you'],a:"You're welcome! Let me know if you'd like to know more about Ravin's experience, projects, or how to get in touch."}
+];
+
+// Small edit-distance helper so minor typos ("databse" → "database") still match.
+function levenshtein(a,b){
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let i=0;i<=m;i++) dp[i][0]=i;
+  for(let j=0;j<=n;j++) dp[0][j]=j;
+  for(let i=1;i<=m;i++){
+    for(let j=1;j<=n;j++){
+      dp[i][j]=a[i-1]===b[j-1]
+        ? dp[i-1][j-1]
+        : 1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function tokenize(s){
+  return s.toLowerCase().split(/[^a-z0-9']+/).filter(Boolean);
+}
+
+// A keyword word "matches" a message token if it's exact, OR within a small
+// edit-distance tolerance scaled to word length (so "databse"≈"database",
+// "skill"≈"skills"). Short words (≤3 chars, e.g. "hi","db","sql") require an
+// exact token match — fuzzy-matching them would cause false positives
+// (e.g. "hi" wrongly matching inside "his"/"hire").
+function wordMatchesTokens(word,tokens){
+  if(tokens.includes(word)) return true;
+  if(word.length<=3) return false;
+  const maxDist = word.length<=6 ? 1 : 2;
+  for(const t of tokens){
+    if(Math.abs(t.length-word.length)>maxDist) continue;
+    if(levenshtein(word,t)<=maxDist) return true;
+  }
+  return false;
+}
+
+function findAnswer(text){
+  const tokens=tokenize(text);
+
+  function scoreEntries(entries){
+    let best=null,bestScore=0;
+    for(const entry of entries){
+      let score=0;
+      for(const kw of entry.kw){
+        const kwWords=tokenize(kw);
+        const allMatch=kwWords.every(w=>wordMatchesTokens(w,tokens));
+        if(allMatch) score+=kw.length;
+      }
+      if(score>bestScore){ bestScore=score; best=entry; }
+    }
+    return best;
+  }
+
+  // Specific topics (Dayforce, projects, skills, certifications, etc.) are checked
+  // first, so a named entity always wins over a generic phrase like "what does
+  // Ravin do" — e.g. "What does Ravin do at Dayforce?" should hit the Dayforce
+  // answer, not the generic bio. Greeting/about/thanks are the catch-all tier.
+  const specific=scoreEntries(KB.filter(e=>e.tier!=='general'));
+  if(specific) return specific.a;
+
+  const general=scoreEntries(KB.filter(e=>e.tier==='general'));
+  if(general) return general.a;
+
+  return "I can share details about Ravin's experience, skills, projects, education, or how to get in touch — what would you like to know? You can also email him directly at ravinkumarrakholiya@gmail.com.";
+}
+
 async function sendMessage(){
   const text=chatInput.value.trim();
   if(!text||isLoading)return;
@@ -2137,38 +2110,19 @@ async function sendMessage(){
   chatSuggestions.style.display='none';
 
   addMessage('user',text);
-  conversationHistory.push({role:'user',content:text});
-
   addTyping();
 
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:1000,
-        system:PORTFOLIO_CONTEXT,
-        messages:conversationHistory
-      })
-    });
-    const data=await res.json();
-    removeTyping();
-    const reply=data.content&&data.content[0]&&data.content[0].text
-      ? data.content[0].text
-      : 'Sorry, I couldn\'t get a response. Please try again.';
-    addMessage('ai',reply);
-    conversationHistory.push({role:'assistant',content:reply});
-  }catch(err){
-    removeTyping();
-    addMessage('ai','Connection error. Please try again in a moment.');
-  }
+  // Small delay just so it feels conversational — answer is computed locally, no API call.
+  await new Promise(r=>setTimeout(r, 400+Math.random()*400));
+
+  const reply=findAnswer(text);
+  removeTyping();
+  addMessage('ai',reply);
 
   isLoading=false;
   chatSend.disabled=false;
   chatInput.focus();
 }
-
 
 const backToTop=document.getElementById('backToTop');
 const progressBar=document.getElementById('progress-bar');
